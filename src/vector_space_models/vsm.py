@@ -54,21 +54,30 @@ def getCosineDistance(d1, d2):
     j = 0
     for (k, v) in d1.items():
         if k in d2:
+            #print k
             sum += (v * d2[k])
+            i += v**2
+            j += d2[k]**2
+
+        else:
             i += v ** 2
-            j += d2[k] ** 2
-        # else:
-        #     #if it doesnt exist??
-        #     sum += v ** 2
 
     for (k, v) in d2.items():
         if k not in d1: j += v ** 2
 
-    print sum
-    print i
-    print j
-    if sum == 0 or i == 0 or j == 0: return 100000
-    return float(sum)/(float(math.sqrt(i))*float(math.sqrt(j)))
+
+    # if sum == 0 or i == 0 or j == 0:
+    #     print d1
+    #     print sum
+    #     print i
+    #     print j
+
+        #return 100000
+    # print sum
+    # print i
+    # print j
+    #if sum == 0 or i == 0 or j == 0: return 100000
+    return -float(sum)/(float(math.sqrt(i))*float(math.sqrt(j)))
 
 # def initCentroids(docs, k, T):
 #     #centroids
@@ -123,7 +132,7 @@ sw = generateStopWords(tf, df, .8)
 tfidf1 = getTFIDFs(tf1, df1, sw)
 tfidf = getTFIDFs(tf, df, sw)
 
-knn = 40
+knn = 3
 trainnum = 0
 
 for dev in tfidf1:
@@ -134,8 +143,8 @@ for dev in tfidf1:
     j = 0
     minv = 10000
     for train in tfidf:
-        #dist = getEuclideanDistance(train, dev)
-        dist = getCosineDistance(train, dev)
+        dist = getEuclideanDistance(train, dev)
+        #dist = getCosineDistance(train, dev)
 
         #print dist
 
